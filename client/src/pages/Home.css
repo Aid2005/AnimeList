@@ -1,0 +1,25 @@
+body{
+    margin: 0;
+}
+.home-container {
+  min-height: 100vh;
+  background-color: #050505; /* Deep black background for the whole page */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.main-content {
+  padding: 2rem 4rem;
+}
+
+.section-title {
+  color: #ffffff;
+  margin-bottom: 2rem;
+  border-left: 4px solid #e50914;
+  padding-left: 1rem;
+}
+
+.anime-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 2rem;
+}
