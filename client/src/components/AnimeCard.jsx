@@ -1,9 +1,16 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './AnimeCard.css';
 
-const AnimeCard = ({ title, rating, imageUrl }) => {
+const AnimeCard = ({ id, title, rating, imageUrl }) => {
+  const navigate = useNavigate();
+
+  const handleCardClick = () => {
+    navigate(`/anime/${id}`);
+  };
+
   return (
-    <div className="anime-card">
+    <div className="anime-card" onClick={handleCardClick}>
       <div className="card-image-container">
         <img src={imageUrl} alt={title} className="card-image" />
       </div>

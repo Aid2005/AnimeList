@@ -1,0 +1,7 @@
+body, html {
+  background-color: #050505;
+  margin: 0;
+  padding: 0;
+  color: white;
+  min-height: 100vh;
+}

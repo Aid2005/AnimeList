@@ -1,17 +1,20 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar = ({ onLoginClick }) => {
   return (
     <nav className="navbar">
       <div className="nav-logo">
-        <h1>AnimeList</h1>
+        <Link to="/" style={{ textDecoration: 'none' }}>
+          <h1>AnimeList</h1>
+        </Link>
       </div>
       
       <ul className="nav-links">
-        <li><a href="/">Home</a></li>
-        <li><a href="/notifications">Notifications</a></li>
-        <li><a href="/my-list">My List</a></li>
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/profile">Profile</Link></li>
+        <li><Link to="/my-list">My List</Link></li>
       </ul>
 
       <div className="nav-actions">
