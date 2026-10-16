@@ -117,6 +117,121 @@
   border-color: #ff8c00;
 }
 
+/* ================= Custom File Upload ================= */
+.hidden-file-input {
+  display: none !important;
+}
+
+.custom-file-button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 18px;
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.custom-file-button:hover {
+  border-color: #ff8c00;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.custom-file-button span:last-child {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ================= Form Action Buttons ================= */
+.form-buttons-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  margin-top: 20px !important;
+}
+
+/* Equal dimensions for submit and cancel buttons */
+.form-buttons-row .submit-btn,
+.form-buttons-row .cancel-btn {
+  height: 42px !important;
+  min-height: 42px !important;
+  max-height: 42px !important;
+  padding: 0 22px !important;
+  margin: 0 !important;
+  font-size: 0.95rem !important;
+  font-weight: 600 !important;
+  line-height: 1 !important;
+  border-radius: 8px !important;
+  box-sizing: border-box !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: all 0.25s ease !important;
+  outline: none !important;
+}
+
+/* Update / Save button */
+.form-buttons-row .submit-btn {
+  border: 1px solid transparent !important;
+  background: linear-gradient(135deg, #ff4e50, #f9d423) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(255, 78, 80, 0.35) !important;
+}
+
+.form-buttons-row .submit-btn:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 16px rgba(255, 78, 80, 0.5) !important;
+}
+
+/* Cancel button */
+.form-buttons-row .cancel-btn {
+  border: 1px solid rgba(255, 70, 70, 0.5) !important;
+  background: rgba(255, 50, 50, 0.15) !important;
+  color: #ffcccc !important;
+  backdrop-filter: blur(6px) !important;
+}
+
+.form-buttons-row .cancel-btn:hover {
+  background: rgba(255, 50, 50, 0.3) !important;
+  border-color: rgba(255, 90, 90, 0.8) !important;
+  color: #ffffff !important;
+  transform: translateY(-2px) !important;
+}
+
+.submit-btn.gradient-btn {
+  background: linear-gradient(135deg, #ff4e50, #f9d423);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(255, 78, 80, 0.35);
+}
+
+.submit-btn.gradient-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 78, 80, 0.5);
+}
+
+.cancel-btn {
+  border: 1px solid rgba(255, 70, 70, 0.5) !important;
+  background: rgba(255, 50, 50, 0.15) !important;
+  color: #ffcccc;
+  backdrop-filter: blur(6px);
+}
+
+.cancel-btn:hover {
+  background: rgba(255, 50, 50, 0.3) !important;
+  border-color: rgba(255, 90, 90, 0.8) !important;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+/* ================= Admin Lists & Cards ================= */
 .admin-list {
   display: flex;
   flex-direction: column;
@@ -198,36 +313,5 @@
     position: relative;
     padding: 1rem;
     border-right: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  }
-  
-  .admin-nav {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  
-  .admin-nav button {
-    flex: 1 1 40%;
-    text-align: center;
-  }
-  
-  .admin-content {
-    padding: 1.5rem;
-  }
-  
-  .form-row {
-    flex-direction: column;
-  }
-  
-  .admin-anime-card,
-  .admin-user-card {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .admin-actions {
-    width: 100%;
-    justify-content: flex-end;
   }
 }

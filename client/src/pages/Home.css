@@ -29,6 +29,7 @@
   gap: 2rem;
 }
 
+/* Responsive adjustments for mobile devices */
 @media (max-width: 768px) {
   .main-content {
     padding: 2rem 1.5rem;

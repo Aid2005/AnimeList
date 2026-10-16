@@ -37,7 +37,7 @@
   box-shadow: 0 0 10px rgba(255, 140, 0, 0.2);
 }
 
-/* Potpuno sakriva ružne bijele strelice za unose brojeva u Chrome, Safari, Edge i Firefoxu */
+/* Hide default spin buttons for number inputs in WebKit browsers and Firefox */
 input[type=number]::-webkit-outer-spin-button,
 input[type=number]::-webkit-inner-spin-button {
   -webkit-appearance: none;

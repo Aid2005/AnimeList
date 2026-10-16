@@ -1,10 +1,56 @@
 import React, { useState } from 'react';
 import './AddToListModal.css';
 
-const AddToListModal = ({ isOpen, onClose, animeTitle }) => {
-  const [status, setStatus] = useState('watching');
+const AddToListModal = ({ isOpen, onClose, animeId, animeTitle, totalEpisodes, onSuccess }) => {
+  const [status, setStatus] = useState('Watching');
+  const [episodesWatched, setEpisodesWatched] = useState('');
+  const [userRating, setUserRating] = useState('10');
 
   if (!isOpen) return null;
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const currentUserStr = localStorage.getItem('currentUser');
+    if (!currentUserStr) {
+      alert("You must be logged in to add anime to your list!");
+      return;
+    }
+
+    const currentUser = JSON.parse(currentUserStr);
+    const watchedNum = parseInt(episodesWatched) || 0;
+
+    // Validate episode count against total available episodes
+    if (totalEpisodes && watchedNum > totalEpisodes) {
+      alert(`Watched episodes (${watchedNum}) cannot exceed total episodes (${totalEpisodes})!`);
+      return;
+    }
+
+    try {
+      const res = await fetch('http://localhost:5000/api/user-list', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          user_id: currentUser.id,
+          anime_id: animeId,
+          status: status,
+          user_rating: parseFloat(userRating),
+          episodes_watched: watchedNum
+        })
+      });
+
+      if (res.ok) {
+        alert("Successfully saved to your list!");
+        if (onSuccess) onSuccess();
+        onClose();
+      } else {
+        const errorData = await res.json();
+        alert(errorData.message || "Failed to save to list.");
+      }
+    } catch (error) {
+      console.error("Error saving to list:", error);
+    }
+  };
 
   return (
     <div className="modal-overlay" onClick={onClose}>
@@ -13,7 +59,7 @@ const AddToListModal = ({ isOpen, onClose, animeTitle }) => {
         <h2 className="modal-title">Add to My List</h2>
         <p className="modal-subtitle">Configure list status for <strong>{animeTitle}</strong></p>
 
-        <form className="list-form" onSubmit={(e) => e.preventDefault()}>
+        <form className="list-form" onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="status">Status</label>
             <select 
@@ -21,23 +67,37 @@ const AddToListModal = ({ isOpen, onClose, animeTitle }) => {
               value={status}
               onChange={(e) => setStatus(e.target.value)}
             >
-              <option value="watching">Watching</option>
-              <option value="completed">Completed</option>
-              <option value="plan_to_watch">Plan to Watch</option>
-              <option value="dropped">Dropped</option>
+              <option value="Watching">Watching</option>
+              <option value="Completed">Completed</option>
+              <option value="Plan to Watch">Plan to Watch</option>
+              <option value="Dropped">Dropped</option>
             </select>
           </div>
 
-          {status === 'watching' && (
+          {status === 'Watching' && (
             <div className="form-group">
-              <label htmlFor="progress">Episodes Watched</label>
-              <input type="number" id="progress" min="0" placeholder="e.g. 12" />
+              <label htmlFor="progress">
+                Episodes Watched {totalEpisodes ? `(Max: ${totalEpisodes})` : ''}
+              </label>
+              <input 
+                type="number" 
+                id="progress" 
+                min="0" 
+                max={totalEpisodes || undefined}
+                placeholder={totalEpisodes ? `max ${totalEpisodes}` : "e.g. 12"} 
+                value={episodesWatched}
+                onChange={(e) => setEpisodesWatched(e.target.value)}
+              />
             </div>
           )}
 
           <div className="form-group">
             <label htmlFor="user-rating">Your Rating</label>
-            <select id="user-rating" defaultValue="10">
+            <select 
+              id="user-rating" 
+              value={userRating}
+              onChange={(e) => setUserRating(e.target.value)}
+            >
               <option value="10">(10) Masterpiece</option>
               <option value="9">(9) Great</option>
               <option value="8">(8) Very Good</option>
@@ -51,7 +111,7 @@ const AddToListModal = ({ isOpen, onClose, animeTitle }) => {
             </select>
           </div>
 
-          <button type="submit" className="submit-btn gradient-btn" onClick={onClose}>
+          <button type="submit" className="submit-btn gradient-btn">
             Save to List
           </button>
         </form>

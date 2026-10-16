@@ -103,7 +103,7 @@
   transition: 0.2s ease all;
 }
 
-/* Magija za floating labele - reaguje na fokus i na ukucan tekst */
+/* Floating label effect: triggers on input focus or when text is typed */
 .input-group input:focus ~ label,
 .input-group input:not(:placeholder-shown) ~ label {
   top: 0.6rem;

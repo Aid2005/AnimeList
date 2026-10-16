@@ -75,6 +75,7 @@
   font-size: 1.6rem;
 }
 
+/* Responsive adjustments */
 @media (max-width: 768px) {
   .my-list-main {
     padding: 2rem 1.5rem;

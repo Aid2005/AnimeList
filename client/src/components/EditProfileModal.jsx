@@ -1,28 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './EditProfileModal.css';
 
 const EditProfileModal = ({ isOpen, onClose, type, onSave, currentData }) => {
-  const [nameValue, setNameValue] = useState(currentData?.name || '');
+  const [nameValue, setNameValue] = useState('');
   const [previewUrl, setPreviewUrl] = useState('');
   const [fileName, setFileName] = useState('');
 
+  // Sync state with current user data whenever the modal opens
+  useEffect(() => {
+    if (isOpen && currentData) {
+      setNameValue(currentData.name || '');
+      setPreviewUrl('');
+      setFileName('');
+    }
+  }, [isOpen, currentData]);
+
   if (!isOpen) return null;
 
+  // Convert selected image file to Base64 format for localStorage persistence
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      const localUrl = URL.createObjectURL(file);
-      setPreviewUrl(localUrl);
       setFileName(file.name);
+
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        // reader.result returns a Base64 encoded data URL (data:image/...)
+        setPreviewUrl(reader.result);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    // Save new Base64 image if uploaded; otherwise retain the existing image
     onSave({ 
-      image: previewUrl || (type === 'avatar' ? currentData.avatar : currentData.banner), 
+      image: previewUrl || (type === 'avatar' ? currentData?.avatar : currentData?.banner), 
       name: nameValue 
     });
+
     setPreviewUrl('');
     setFileName('');
     onClose();
@@ -32,6 +50,7 @@ const EditProfileModal = ({ isOpen, onClose, type, onSave, currentData }) => {
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content glass slide-up" onClick={(e) => e.stopPropagation()}>
         <button className="close-btn" onClick={onClose}>&times;</button>
+        
         <h2 className="modal-title">
           {type === 'avatar' ? 'Edit Profile' : 'Edit Banner'}
         </h2>

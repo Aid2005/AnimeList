@@ -2,14 +2,14 @@
   background-color: #1a1a1a;
   border-radius: 8px;
   overflow: hidden;
-  width: 100%; /* Ovo omogucava gridu da kontrolise sirinu */
+  width: 100%; /* Allows parent grid container to control card width */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
 }
 
 .anime-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(229, 9, 20, 0.4); /* Red glow on hover */
+  box-shadow: 0 5px 15px rgba(229, 9, 20, 0.4); /* Red glow effect on hover */
 }
 
 .card-image-container {
@@ -38,7 +38,7 @@
 }
 
 .card-rating {
-  color: #ff8c00; /* Orange rating text */
+  color: #ff8c00; /* Accent color for rating star and score */
   font-weight: bold;
   display: flex;
   align-items: center;

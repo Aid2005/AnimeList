@@ -5,6 +5,7 @@ import './AnimeCard.css';
 const AnimeCard = ({ id, title, rating, imageUrl }) => {
   const navigate = useNavigate();
 
+  // Redirect to anime detail page on click
   const handleCardClick = () => {
     navigate(`/anime/${id}`);
   };

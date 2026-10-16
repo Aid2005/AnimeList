@@ -193,7 +193,7 @@
   font-size: 0.95rem;
 }
 
-/* Responsive adjustments */
+/* Responsive Adjustments */
 @media (max-width: 768px) {
   .hero-banner {
     height: 240px;
